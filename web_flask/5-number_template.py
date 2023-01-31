@@ -1,49 +1,56 @@
 #!/usr/bin/python3
-# Script that starts a Flask web application:
-
+"""
+    Sript that starts a Flask web application
+ """
 from flask import Flask, render_template
-
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
-def hello_route():
-    """ return Hello HBNB! """
-    return 'Hello HBNB!'
+@app.route('/', strict_slashes=False)
+def hello_hbn():
+    """
+        function to return Hello HBNB!
+    """
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb')
-def hbnb_route():
-    """ return HBNB """
-    return 'HBNB'
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """
+        function to return HBNB
+    """
+    return "HBNB"
 
 
-@app.route('/c/<text>')
-def c_route(text):
-    """ return c followed by the value """
+@app.route('/c/<text>', strict_slashes=False)
+def text_var(text):
+    """
+        function to display text variable passed in
+    """
     return "C {}".format(text.replace("_", " "))
 
 
-@app.route('/python/')
-@app.route('/python/<text>')
-def python_route(text="is cool"):
-    """ return followed by the value of the text variable """
+@app.route('/python/<text>', strict_slashes=False)
+def text_var_python(text="is cool"):
+    """
+        function to display text variable, with default "is cool"
+    """
     return "Python {}".format(text.replace("_", " "))
 
 
-@app.route('/number/<int:n>')
-def number_route(n):
-    """display n is a number only if n is integer"""
-    return "{} is a number".format(n)
+@app.route('/number/<int:n>', strict_slashes=False)
+def var_num(n):
+        """
+             function to display a variable, but only if an int
+        """
+        return "{} is a number".format(n)
 
 
-@app.route('/number_template/<int:n>')
-def number_template(n):
-    """display a HTML page only if n is integer
-    H1 tag: Number: n inside the tag BODY
-    """
-    return render_template('5-number.html', number=n)
-
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def var_num_template(n):
+        """
+            function to display number in html page
+        """
+        return render_template("5-number.html", n=n)
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+        app.run(host='0.0.0.0', port=5000)
